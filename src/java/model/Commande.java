@@ -41,6 +41,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.findByPenalite", query = "SELECT c FROM Commande c WHERE c.penalite = :penalite"),
     @NamedQuery(name = "Commande.findByStockMin", query = "SELECT c FROM Commande c WHERE c.stockMin = :stockMin")})
 public class Commande implements Serializable {
+    @Column(name = "dEnvoi")
+    private Integer dEnvoi;
+    @Column(name = "dEnvoiPrevue")
+    private Integer dEnvoiPrevue;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -48,12 +52,6 @@ public class Commande implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "id")
     private String id;
-    @Column(name = "dEnvoiPrevue")
-    private int dEnvoiPrevue;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dEnvoi")
-    private int dEnvoi;
     @Column(name = "nb")
     private Integer nb;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -87,21 +85,6 @@ public class Commande implements Serializable {
         this.id = id;
     }
 
-    public int getDEnvoiPrevue() {
-        return dEnvoiPrevue;
-    }
-
-    public void setDEnvoiPrevue(int dEnvoiPrevue) {
-        this.dEnvoiPrevue = dEnvoiPrevue;
-    }
-
-    public int getDEnvoi() {
-        return dEnvoi;
-    }
-
-    public void setDEnvoi(int dEnvoi) {
-        this.dEnvoi = dEnvoi;
-    }
 
     public Integer getNb() {
         return nb;
@@ -159,6 +142,22 @@ public class Commande implements Serializable {
     @Override
     public String toString() {
         return "model.Commande[ id=" + id + " ]";
+    }
+
+    public Integer getDEnvoi() {
+        return dEnvoi;
+    }
+
+    public void setDEnvoi(Integer dEnvoi) {
+        this.dEnvoi = dEnvoi;
+    }
+
+    public Integer getDEnvoiPrevue() {
+        return dEnvoiPrevue;
+    }
+
+    public void setDEnvoiPrevue(Integer dEnvoiPrevue) {
+        this.dEnvoiPrevue = dEnvoiPrevue;
     }
     
 }

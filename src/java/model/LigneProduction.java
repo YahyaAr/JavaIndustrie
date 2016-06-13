@@ -6,15 +6,18 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "LigneProduction.findById", query = "SELECT l FROM LigneProduction l WHERE l.id = :id"),
     @NamedQuery(name = "LigneProduction.findByNbLignes", query = "SELECT l FROM LigneProduction l WHERE l.nbLignes = :nbLignes")})
 public class LigneProduction implements Serializable {
+    @OneToMany(mappedBy = "nbLigne")
+    private List<ProduitBaked> produitBakedList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -84,6 +89,15 @@ public class LigneProduction implements Serializable {
     @Override
     public String toString() {
         return "model.LigneProduction[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<ProduitBaked> getProduitBakedList() {
+        return produitBakedList;
+    }
+
+    public void setProduitBakedList(List<ProduitBaked> produitBakedList) {
+        this.produitBakedList = produitBakedList;
     }
     
 }

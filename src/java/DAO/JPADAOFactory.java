@@ -45,7 +45,10 @@ public class JPADAOFactory extends DAOFactory {
         return JPADAOInstanceBox.getInstance();
     }
 
-    
+    @Override
+    public DAOProduitBaked getProduitBaked() {
+        return JPADAOProduitBaked.getInstance();
+    }
 
   
     
