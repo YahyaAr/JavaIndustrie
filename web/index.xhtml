@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+        <link href="css/index.css" rel="stylesheet"></link>
+        <link href="css/flat-ui.css" rel="stylesheet"></link>
+        <script src="js/isomer.min.js"></script>
+
+    </h:head>
+    <h:body>
+        <ul class="sidebar">
+            <li><a href="#fui-button">Buttons</a></li>
+            <li><a href="#fui-checkbox">Checkboxes</a></li>
+            <li><a href="#fui-radio">Radio buttons</a></li>
+            <li><a href="#fui-dropdown">Dropdown</a></li>
+            <li><a href="#fui-input">Input</a></li>
+            <li><a href="#fui-navbar">Navbar</a></li>
+            <li><a href="#fui-pager">Pager</a></li>
+            <li><a href="#fui-pagination">Pagination</a></li>
+            <li><a href="#fui-progress">Progress</a></li>
+            <li><a href="#fui-select">Select</a></li>
+            <li><a href="#fui-switch">Switch</a></li>
+            <li><a href="#fui-tagsinput">Tags Input</a></li>
+            <li><a href="#fui-tooltip">Tooltip</a></li>
+            <li><a href="#fui-slider">Slider</a></li>
+            <li><a href="#fui-typeahead">Typeahead</a></li>
+            <li><a href="#fui-videoplayer">Video Player</a></li>            <li><a href="#fui-navbar">Navbar</a></li>
+            <li><a href="#fui-pager">Pager</a></li>
+            <li><a href="#fui-pagination">Pagination</a></li>
+            <li><a href="#fui-progress">Progress</a></li>
+            <li><a href="#fui-select">Select</a></li>
+            <li><a href="#fui-switch">Switch</a></li>
+            <li><a href="#fui-tagsinput">Tags Input</a></li>
+            <li><a href="#fui-tooltip">Tooltip</a></li>
+            <li><a href="#fui-slider">Slider</a></li>
+            <li><a href="#fui-typeahead">Typeahead</a></li>
+            <li><a href="#fui-videoplayer">Video Player</a></li>            <li><a href="#fui-navbar">Navbar</a></li>
+            <li><a href="#fui-pager">Pager</a></li>
+            <li><a href="#fui-pagination">Pagination</a></li>
+            <li><a href="#fui-progress">Progress</a></li>
+            <li><a href="#fui-select">Select</a></li>
+            <li><a href="#fui-switch">Switch</a></li>
+            <li><a href="#fui-tagsinput">Tags Input</a></li>
+            <li><a href="#fui-slider">Slider</a></li>
+            <li><a href="#fui-typeahead">Typeahead</a></li>
+            <li><a href="#fui-videoplayer">Video Player</a></li>
+          </ul>
+        <div class="mainview">
+            <h:form class="form-horizontal" enctype="multipart/form-data">
+                <div class="form-group">
+                    <h:outputLabel class="col-md-4 control-label" value="Select Fichier D'instance : " />
+                    <div class="col-md-4">
+                        <h:inputFile id="file" value="#{uploadInstance.fichier}"/>
+                        <h:commandButton
+                            id="singlebutton"
+                            class="btn btn-primary" 
+                            value="Traiter"
+                            action="#{uploadInstance.uploadFichier()}"></h:commandButton> 
+                    </div>
+                </div>
+            </h:form>  
+        </div>
+        <canvas width="800" height="600" style="width: 800px; height: 600px" id="canvas"></canvas>
+
+      <script>
+        //alert('#{testController.nom}');
+        var Point  = Isomer.Point;
+        var Path   = Isomer.Path;
+        var Shape  = Isomer.Shape;
+        var Vector = Isomer.Vector;
+        var Color  = Isomer.Color;
+
+        var iso = new Isomer(document.getElementById("canvas"));
+        console.log(iso);
+        var red = new Color(160, 60, 50);
+        var blue = new Color(50, 60, 160);
+        var grey = new Color(150,150,150, 0.2);
+        console.log(grey);
+
+        iso.add(Shape.Prism(Point.ORIGIN, 4, 4, 4), grey);
+        iso.add(Shape.Prism(Point(0, 0, 0), 2, 3), blue);
+
+
+    </script>
+    </h:body>
+
+            
+</html>
+
