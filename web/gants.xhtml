@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+        <link href="css/index.css" rel="stylesheet"></link>
+        <link href="css/flat-ui.css" rel="stylesheet"></link>
+
+    </h:head>
+    <h:body>
+        <ul class="sidebar">
+            <li>
+                <h:form>
+                    <h:commandLink action="#{pageController.Gants()}" value="Gants"></h:commandLink>
+                </h:form>
+            </li>
+            <li>
+                <h:form>
+                    <h:commandLink action="#{pageController.Stats()}" value="Stats"></h:commandLink>
+                </h:form>
+            </li>
+            <li>
+                <h:form>
+                    <h:commandLink action="#{pageController.Tests()}" value="Tests"></h:commandLink>
+                </h:form>
+            </li>
+            <li style="padding: 20px">
+                <strong>Commandes</strong>
+            </li>
+            <ui:repeat var="commande" value="#{dBManager.commandesList()}">
+                <h:form>
+                    <h:commandLink action="#{pageController.Commande(commande)}" value="#{commande.id}"></h:commandLink>
+                </h:form>
+            </ui:repeat>
+        </ul>
+        <div class="mainview">
+            gants
+        </div>
+    </h:body>
+
+
+</html>

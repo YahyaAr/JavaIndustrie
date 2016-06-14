@@ -18,6 +18,6 @@ public interface DAO<T> {
     public List<T> findAll() ;
     public boolean update (T obj) ;
     public boolean delete (T obj) ;
-    public boolean deleteAll() ;
+    public void deleteAll() ;
     public void close();
 }

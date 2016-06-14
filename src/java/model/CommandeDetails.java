@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -38,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CommandeDetails.findById", query = "SELECT c FROM CommandeDetails c WHERE c.id = :id"),
     @NamedQuery(name = "CommandeDetails.findByQuantite", query = "SELECT c FROM CommandeDetails c WHERE c.quantite = :quantite")})
 public class CommandeDetails implements Serializable {
+
+    @OneToMany(mappedBy = "idCommandeDetails")
+    private List<InstanceBox> instanceBoxList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommandeDetails")
     private List<ProduitBaked> produitBakedList;
     private static final long serialVersionUID = 1L;
@@ -55,12 +60,17 @@ public class CommandeDetails implements Serializable {
     @JoinColumn(name = "idProduit", referencedColumnName = "id")
     @ManyToOne
     private Produit idProduit;
-
+    
+    
     public CommandeDetails() {
+        produitBakedList = new ArrayList();
+        instanceBoxList = new ArrayList();
     }
 
     public CommandeDetails(Integer id) {
         this.id = id;
+        produitBakedList = new ArrayList();
+        instanceBoxList = new ArrayList();
     }
 
     public Integer getId() {
@@ -128,5 +138,16 @@ public class CommandeDetails implements Serializable {
     public void setProduitBakedList(List<ProduitBaked> produitBakedList) {
         this.produitBakedList = produitBakedList;
     }
+
+    @XmlTransient
+    public List<InstanceBox> getInstanceBoxList() {
+        return instanceBoxList;
+    }
+
+    public void setInstanceBoxList(List<InstanceBox> instanceBoxList) {
+        this.instanceBoxList = instanceBoxList;
+    }
+
+  
     
 }

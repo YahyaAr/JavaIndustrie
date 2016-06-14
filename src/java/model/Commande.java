@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,25 +36,27 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.deleteAll", query = "DELETE FROM Commande c"),
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findById", query = "SELECT c FROM Commande c WHERE c.id = :id"),
+    @NamedQuery(name = "Commande.findAllOrderByDEnvoiPrevue", query = "SELECT c FROM Commande c ORDER BY c.dEnvoiPrevue"),
     @NamedQuery(name = "Commande.findByDEnvoiPrevue", query = "SELECT c FROM Commande c WHERE c.dEnvoiPrevue = :dEnvoiPrevue"),
     @NamedQuery(name = "Commande.findByDEnvoi", query = "SELECT c FROM Commande c WHERE c.dEnvoi = :dEnvoi"),
     @NamedQuery(name = "Commande.findByNb", query = "SELECT c FROM Commande c WHERE c.nb = :nb"),
     @NamedQuery(name = "Commande.findByPenalite", query = "SELECT c FROM Commande c WHERE c.penalite = :penalite"),
     @NamedQuery(name = "Commande.findByStockMin", query = "SELECT c FROM Commande c WHERE c.stockMin = :stockMin")})
 public class Commande implements Serializable {
-    @Column(name = "dEnvoi")
-    private Integer dEnvoi;
-    @Column(name = "dEnvoiPrevue")
-    private Integer dEnvoiPrevue;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "id")
     private String id;
     @Column(name = "nb")
     private Integer nb;
+    @Basic(optional = true)
+    @Column(name = "dEnvoi")
+    private Integer dEnvoi;
+    @Column(name = "dEnvoiPrevue")
+    private Integer dEnvoiPrevue;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "penalite")
     private Double penalite;
@@ -70,11 +73,6 @@ public class Commande implements Serializable {
     public Commande(String id) {
         this.id = id;
         commandeDetailsList = new ArrayList();
-    }
-
-    public Commande(String id, int dEnvoi) {
-        this.id = id;
-        this.dEnvoi = dEnvoi;
     }
 
     public String getId() {
@@ -159,5 +157,5 @@ public class Commande implements Serializable {
     public void setDEnvoiPrevue(Integer dEnvoiPrevue) {
         this.dEnvoiPrevue = dEnvoiPrevue;
     }
-    
+
 }

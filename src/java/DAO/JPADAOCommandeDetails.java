@@ -44,12 +44,11 @@ public class JPADAOCommandeDetails extends JpaDao<CommandeDetails> implements DA
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNamedQuery("CommandeDetails.deleteAll").executeUpdate();
         et.commit();
-        return true;
     }
 
     @Override

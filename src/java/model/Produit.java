@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,11 +39,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produit.findByTProduction", query = "SELECT p FROM Produit p WHERE p.tProduction = :tProduction"),
     @NamedQuery(name = "Produit.findByTSetup", query = "SELECT p FROM Produit p WHERE p.tSetup = :tSetup")})
 public class Produit implements Serializable {
+
+    @OneToMany(mappedBy = "idProduit")
+    private List<InstanceBox> instanceBoxList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "id")
     private String id;
     @Column(name = "hauteur")
@@ -55,16 +58,18 @@ public class Produit implements Serializable {
     private Integer tProduction;
     @Column(name = "t_setup")
     private Integer tSetup;
-    @OneToMany(mappedBy = "idProduit")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "idProduit")
     private List<CommandeDetails> commandeDetailsList;
 
     public Produit() {
         commandeDetailsList = new ArrayList();
+        instanceBoxList = new ArrayList();
     }
 
     public Produit(String id) {
         this.id = id;
         commandeDetailsList = new ArrayList();
+        instanceBoxList = new ArrayList();
     }
 
     public String getId() {
@@ -148,5 +153,14 @@ public class Produit implements Serializable {
     public String toString() {
         return "model.Produit[ id=" + id + " ]";
     }
-    
+
+    @XmlTransient
+    public List<InstanceBox> getInstanceBoxList() {
+        return instanceBoxList;
+    }
+
+    public void setInstanceBoxList(List<InstanceBox> instanceBoxList) {
+        this.instanceBoxList = instanceBoxList;
+    }
+
 }

@@ -43,12 +43,11 @@ public class JPADAOLigneProduction extends JpaDao<LigneProduction> implements DA
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNamedQuery("LigneProduction.deleteAll").executeUpdate();
         et.commit();
-        return true;
     }
     
 }

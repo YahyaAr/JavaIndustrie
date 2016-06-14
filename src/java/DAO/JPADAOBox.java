@@ -37,16 +37,15 @@ public class JPADAOBox extends JpaDao<Box> implements DAOBox{
 
     @Override
     public List<Box> findAll() {
-        return em.createNamedQuery("BoxType.findAll").getResultList();
+        return em.createNamedQuery("Box.findAll").getResultList();
     }
     // Supprime tout les type de box
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNamedQuery("Box.deleteAll").executeUpdate();
         et.commit();
-        return true;
     }
     // Retrouve la premiére box avec les dimensions requises
     @Override

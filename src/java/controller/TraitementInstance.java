@@ -14,15 +14,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.servlet.http.Part;
+import metier.Solution1;
 
 
 /**
  *
  * @author aDahmani
  */
+@Named(value = "traitementInstance")
+@SessionScoped
 public class TraitementInstance implements Serializable {
-    
+
     private Part fichier;
     private List<String> typesProduitValues;
     private int nbLignesProd;
@@ -35,8 +40,9 @@ public class TraitementInstance implements Serializable {
     private final DAOCommande daoCommande;
     private final DAOCommandeDetails daoCommandeDetail;
     private final DAOInstanceBox daoInstanceBox;
+    private final DAOProduitBaked daoProduitBaked;
 
-   
+
     public TraitementInstance() {
         jpaDaoFactory = (JPADAOFactory) DAOFactory.getDaoFactory(DAOFactory.PersistType.JPA);
         daoProduit = jpaDaoFactory.getProduitDao();
@@ -46,17 +52,20 @@ public class TraitementInstance implements Serializable {
         daoCommandeDetail = jpaDaoFactory.getCommandeDetailDao();
         daoInstanceBox = jpaDaoFactory.getInstanceBoxDao();
         typesProduitValues = new ArrayList();
+        daoProduitBaked = jpaDaoFactory.getProduitBaked();
         
         // initialisation de la BDD ( suppression des anciennes données ) /////////
+        daoProduitBaked.deleteAll();
+        daoCommandeDetail.deleteAll();
+        daoInstanceBox.deleteAll();
+        daoCommande.deleteAll();
+
         daoProduit.deleteAll();
         daoBox.deleteAll();
         daoLigneProduction.deleteAll();
-        daoCommande.deleteAll();
-        daoCommandeDetail.deleteAll();
-        daoInstanceBox.deleteAll();
-       
+        
     }
-    
+
      public String getFileName() {
         return fileName;
     }
@@ -80,8 +89,8 @@ public class TraitementInstance implements Serializable {
     public void setFichier(Part fichier) {
         this.fichier = fichier;
     }
-  
-    
+
+
     public String uploadFichier() {
 //        daoProduit.deleteAll();
 //        daoBox.deleteAll();
@@ -102,16 +111,14 @@ public class TraitementInstance implements Serializable {
                         LigneProduction ligneProduction = new LigneProduction();
                         ligneProduction.setId(i);
                         ligneProduction.setNbLignes(i);
-                        System.out.println("LPP : "+ligneProduction);
                         daoLigneProduction.create(ligneProduction);
-                        System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!LPP : "+ligneProduction);
 
                     }
                 }
                 if(firstWord.length() >= 1) {
                    switch (firstWord.substring(0, 1)) {
                         case "P" : ///// Ligne commençant par P //////
-                           String [] typeProduitTab = line.split(" ");           
+                           String [] typeProduitTab = line.split(" ");
                            Produit produit = new Produit();
                            System.out.println(typeProduitTab[0]);
                            produit.setId(typeProduitTab[0]);
@@ -136,7 +143,6 @@ public class TraitementInstance implements Serializable {
                                if(Integer.valueOf(commandeTab[i]) != 0){
                                    CommandeDetails produitdeCommande = new CommandeDetails();
                                    produitdeCommande.setIdCommande(commande);
-                                   System.out.println("TypeProd :"+typesProduitValues.get(i-4));
                                    Produit p = (Produit) daoProduit.findByIdString(typesProduitValues.get(i - 4));
                                    produitdeCommande.setIdProduit(p);
                                    produitdeCommande.setQuantite(Integer.valueOf(commandeTab[i]));
@@ -162,30 +168,30 @@ public class TraitementInstance implements Serializable {
                    }
                 }
             }
-        daoProduit.close();
-        daoBox.close();
-        daoLigneProduction.close();
-        daoCommande.close();
-        daoCommandeDetail.close();
-        daoInstanceBox.close();
         } catch (IOException e) {
-            System.out.println("excp: "+e);  
+            System.out.println("excp: "+e);
         }
-       // Solution1 Sol = new Solution1();
-       // Sol.execute();
+        Solution1 Sol = new Solution1();
+        Sol.solve();
+//        daoProduit.close();
+//        daoBox.close();
+//        daoLigneProduction.close();
+//        daoCommande.close();
+//        daoCommandeDetail.close();
+//        daoInstanceBox.close();
        return "uploadOK";
     }
-  
+
     public Boolean isNumber(String val) {
         //source :
         //http://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
-        try  {  
-            double d = Double.parseDouble(val);  
-        }  
-        catch(NumberFormatException nfe) {  
-            return false;  
-        }  
-        return true;  
+        try  {
+            double d = Double.parseDouble(val);
+        }
+        catch(NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
-    
+
 }

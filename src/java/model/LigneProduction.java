@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,10 +45,12 @@ public class LigneProduction implements Serializable {
     private Integer nbLignes;
 
     public LigneProduction() {
+        produitBakedList = new ArrayList();
     }
 
     public LigneProduction(Integer id) {
         this.id = id;
+        produitBakedList = new ArrayList();
     }
 
     public Integer getId() {

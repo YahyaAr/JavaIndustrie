@@ -43,12 +43,11 @@ public class JPADAOProduit extends JpaDao<Produit> implements DAOProduit{
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNamedQuery("Produit.deleteAll").executeUpdate();
         et.commit();
-        return true;
     }
 
     @Override

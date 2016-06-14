@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Scene Scope="Project" version="2">
+<Scene Scope="All Faces Configurations" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="faces/tests.xhtml" x="1359" y="32" zoom="true"/>
+        <Node id="faces/index.xhtml" x="1639" y="32" zoom="true"/>
+        <Node id="faces/stats.xhtml" x="557" y="32" zoom="true"/>
+        <Node id="index.xhtml" x="837" y="32" zoom="true"/>
+        <Node id="after.xhtml" x="318" y="32" zoom="true"/>
+        <Node id="faces/after.xhtml" x="1081" y="32" zoom="true"/>
+        <Node id="stats.xhtml" x="2408" y="32" zoom="true"/>
+        <Node id="gants.xhtml" x="1922" y="32" zoom="true"/>
+        <Node id="faces/gants.xhtml" x="34" y="32" zoom="false"/>
+        <Node id="tests.xhtml" x="2167" y="32" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

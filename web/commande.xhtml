@@ -11,7 +11,6 @@
         <link href="css/index.css" rel="stylesheet"></link>
         <link href="css/flat-ui.css" rel="stylesheet"></link>
         <script src="js/isomer.min.js"></script>
-
     </h:head>
     <h:body>
         <ul class="sidebar">
@@ -34,50 +33,36 @@
                 <strong>Commandes</strong>
             </li>
             <ui:repeat var="commande" value="#{dBManager.commandesList()}">
-                <li>
-                    <h:form>
-                        <h:commandLink action="#{pageController.Commande(commande)}" value="#{commande.id}"></h:commandLink>
-                    </h:form>
-                </li>
+                <h:form>
+                    <h:commandLink action="#{pageController.Commande(commande)}" value="#{commande.id}"></h:commandLink>
+                </h:form>
             </ui:repeat>
         </ul>
         <div class="mainview">
-            <h:form class="form-horizontal" enctype="multipart/form-data">
-                <div class="form-group">
-                    <h:outputLabel class="col-md-4 control-label" value="Select Fichier D'instance : " />
-                    <div class="col-md-4">
-                        <h:inputFile id="file" value="#{uploadInstance.fichier}"/>
-                        <h:commandButton
-                            id="singlebutton"
-                            class="btn btn-primary"
-                            value="Traiter"
-                            action="#{uploadInstance.uploadFichier()}"></h:commandButton>
-                    </div>
-                </div>
-            </h:form>
+            <h3>
+                Commande #{pageController.commande.id} prévue à 
+                #{pageController.commande.DEnvoiPrevue} envoyé à #{pageController.commande.DEnvoi}
+            </h3>
+            
+            <h6>
+                Utilisation des boxes
+            </h6>
+            
+            
+            <ui:repeat var="bakedproduct" value="#{pageController.getBakedProductsOfCommande()}">
+                ----------------
+                Produit ( 
+                    Hauteur : #{bakedproduct.idProduit.hauteur}
+                    Longueur #{bakedproduct.idProduit.longueur}
+                )
+                Box (
+                Hauteur : #{bakedproduct.idBox.hauteur}
+                    Longueur #{bakedproduct.idBox.longueur}
+                )
+            </ui:repeat>
+            
+            
         </div>
-        <canvas width="800" height="600" style="width: 800px; height: 600px" id="canvas"></canvas>
-
-      <script>
-        //alert('#{testController.nom}');
-        var Point  = Isomer.Point;
-        var Path   = Isomer.Path;
-        var Shape  = Isomer.Shape;
-        var Vector = Isomer.Vector;
-        var Color  = Isomer.Color;
-
-        var iso = new Isomer(document.getElementById("canvas"));
-        console.log(iso);
-        var red = new Color(160, 60, 50);
-        var blue = new Color(50, 60, 160);
-        var grey = new Color(150,150,150, 0.2);
-        console.log(grey);
-
-        iso.add(Shape.Prism(Point.ORIGIN, 4, 4, 4), grey);
-        iso.add(Shape.Prism(Point(0, 0, 0), 2, 3), blue);
-
-
-    </script>
     </h:body>
 
 

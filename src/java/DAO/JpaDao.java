@@ -26,7 +26,8 @@ public abstract class JpaDao<T> implements DAO<T> {
     }
     
     public abstract T find(long id);
-      @Override
+    
+    @Override
     public boolean create(T t) {
         EntityTransaction et = em.getTransaction();
         
@@ -34,12 +35,12 @@ public abstract class JpaDao<T> implements DAO<T> {
             et.begin();
             em.persist(t);
             et.commit();
+            return true;
         }
         catch(Exception e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -50,12 +51,12 @@ public abstract class JpaDao<T> implements DAO<T> {
             et.begin();
             em.merge(t);
             et.commit();
+            return true;
         }
         catch(Exception e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -66,12 +67,12 @@ public abstract class JpaDao<T> implements DAO<T> {
             et.begin();
             em.remove(t);
             et.commit();
+            return true;
         }
         catch(Exception e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
     
     @Override

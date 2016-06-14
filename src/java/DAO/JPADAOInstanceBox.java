@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import static java.lang.Math.toIntExact;
 import java.util.List;
 import javax.persistence.EntityTransaction;
 import model.Box;
@@ -46,12 +47,11 @@ public class JPADAOInstanceBox extends JpaDao<InstanceBox> implements DAOInstanc
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         EntityTransaction et = em.getTransaction();
         et.begin();
          em.createNamedQuery("InstanceBox.deleteAll").executeUpdate();
         et.commit();
-         return true;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class JPADAOInstanceBox extends JpaDao<InstanceBox> implements DAOInstanc
 
     @Override
     public int compteurDeBox(Box b) {
-        return (int) em.createNamedQuery("InstanceBox.compteurBox").setParameter("Box", b.getId()).getSingleResult();
+        return  toIntExact((long)em.createNamedQuery("InstanceBox.compteurBox").setParameter("Box", b).getSingleResult());
     }
 
    

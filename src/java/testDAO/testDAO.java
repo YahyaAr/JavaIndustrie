@@ -74,12 +74,19 @@ public class testDAO {
 //            b.setPrixBox(34.32);
 //            daoBox.create(b);
             
-            LigneProduction lp = new LigneProduction();
-            lp.setId(1);
-            lp.setNbLignes(1);
-            daoLigneProduction.create(lp);
-            daoLigneProduction.deleteAll();
-            
+//            LigneProduction lp = new LigneProduction();
+//            lp.setId(1);
+//            lp.setNbLignes(1);
+//            daoLigneProduction.create(lp);
+//            daoLigneProduction.deleteAll();
+     
+        List<Commande> LesCommandes = daoCommande.findAllOrderByDEnvoiPrevue();
+        for (int i = 0; i < LesCommandes.size(); i++) {
+            Commande commande = LesCommandes.get(i);
+               System.out.println("////////////////////^\n");
+               System.out.println(commande);
+        }
+        
 //            CommandeDetails cd = new CommandeDetails();
 //            cd.setId(1);
 //            cd.setIdCommande(c);

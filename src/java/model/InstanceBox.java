@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.eclipse.persistence.jpa.config.Cascade;
 
 /**
  *
@@ -29,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "instanceBox")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "InstanceBox.compteurBox", query = "SELECT COUNT(b) FROM InstanceBox b WHERE b.idBox=:Box"),
+    @NamedQuery(name = "InstanceBox.compteurBox", query = "SELECT COUNT(b) FROM InstanceBox b WHERE b.idBox= :Box"),
     @NamedQuery(name = "InstanceBox.findAllAchete", query = "SELECT b FROM InstanceBox b ORDER BY b.idBox"),
     @NamedQuery(name = "InstanceBox.findBoxById", query = "SELECT b FROM InstanceBox b WHERE b.id = :id"),
     @NamedQuery(name = "InstanceBox.deleteAll", query = "DELETE FROM InstanceBox i"),
@@ -39,8 +41,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InstanceBox.findByNumBox", query = "SELECT i FROM InstanceBox i WHERE i.numBox = :numBox"),
     @NamedQuery(name = "InstanceBox.findByIdProduit", query = "SELECT i FROM InstanceBox i WHERE i.idProduit = :id_Produit")})
 public class InstanceBox implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+
+    @JoinColumn(name = "idCommandeDetails", referencedColumnName = "id")
+    @ManyToOne
+    private CommandeDetails idCommandeDetails;
+
+     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
@@ -50,12 +57,10 @@ public class InstanceBox implements Serializable {
     private Integer libre;
     @Column(name = "num_box")
     private Integer numBox;
-    @Size(max = 255)
     @JoinColumn(name = "idProduit", referencedColumnName = "id")
     private Produit idProduit;
-    @Size(max = 255)
     @JoinColumn(name = "idBox", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Box idBox;
 
     public InstanceBox() {
@@ -65,6 +70,7 @@ public class InstanceBox implements Serializable {
         this.id = id;
     }
 
+    
     public Integer getId() {
         return id;
     }
@@ -105,7 +111,7 @@ public class InstanceBox implements Serializable {
         this.idBox = idBox;
     }
 
-  
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -128,7 +134,15 @@ public class InstanceBox implements Serializable {
 
     @Override
     public String toString() {
-        return "model.InstanceBox[ id=" + id + " ]";
+        return "model.InstanceBox[ id=" + id + " IdProd= "+ idProduit+" idBox= "+ idBox+" NumBox= "+ numBox+" Libre= "+ libre+" ]";
     }
-    
+
+    public CommandeDetails getIdCommandeDetails() {
+        return idCommandeDetails;
+    }
+
+    public void setIdCommandeDetails(CommandeDetails idCommandeDetails) {
+        this.idCommandeDetails = idCommandeDetails;
+    }
+
 }

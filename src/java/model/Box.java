@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -42,7 +44,6 @@ public class Box implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "id")
     private String id;
     @Column(name = "hauteur")
@@ -54,7 +55,7 @@ public class Box implements Serializable {
     private Double prixBox;
     @Column(name = "quantite")
     private Integer quantite;
-    @OneToMany(mappedBy = "idBox")
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "idBox")
     private List<InstanceBox> instanceBoxList;
 
     public Box() {
@@ -114,7 +115,7 @@ public class Box implements Serializable {
         this.instanceBoxList = instanceBoxList;
     }
 
-   
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -139,5 +140,5 @@ public class Box implements Serializable {
     public String toString() {
         return "model.Box[ id=" + id + " ]";
     }
-    
+
 }

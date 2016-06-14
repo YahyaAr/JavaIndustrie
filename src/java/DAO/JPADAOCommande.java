@@ -32,29 +32,28 @@ public class JPADAOCommande extends JpaDao<Commande> implements DAOCommande {
     }
 
     @Override
-    public Commande find(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Commande> findAll() {
         return em.createNamedQuery("Commande.findAll").getResultList();
     }
     
     // Supprimer toutes les commandes
     @Override   
-    public boolean deleteAll() {
+    public void deleteAll() {
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNamedQuery("Commande.deleteAll").executeUpdate();
         et.commit();
-        return true;
     }
     
     // GET des commandes triées par ordre prévu d'envoi
     @Override
-    public List<Commande> findAllCommandeByDateEnvoiPrevue() {
-        return em.createNamedQuery("Commande.findAll").getResultList();
+    public List<Commande> findAllOrderByDEnvoiPrevue() {
+        return em.createNamedQuery("Commande.findAllOrderByDEnvoiPrevue").getResultList();
+    }
+
+    @Override
+    public Commande find(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
