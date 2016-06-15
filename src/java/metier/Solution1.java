@@ -66,7 +66,6 @@ public class Solution1 {
                         ligneProd.getProduitBakedList().add(produitBaked);
                         daoLigneProduction.update(ligneProd);
                         commandeDetail.getProduitBakedList().add(produitBaked);
-                        //daoCommandeDetails.update(commandeDetail);
                         filTempsActuelProd += produit.getTProduction();
                         dateEnvoiBoxPleine = filTempsActuelProd;
                         // début process box

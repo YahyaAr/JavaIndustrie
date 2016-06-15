@@ -68,8 +68,33 @@ public class DBManager implements Serializable {
             System.out.println(b);
         });
        return boxes;
-   }  
-      
+   }
+    
+    
+    public List<RenderCommande> commandesTableList() {
+       JPADAOFactory jpaDaoFactory = (JPADAOFactory) DAOFactory.getDaoFactory(DAOFactory.PersistType.JPA);
+       DAOCommande daoCommande = jpaDaoFactory.getCommandeDao();
+       List<Commande> lesCommandes = daoCommande.findAll();
+        ArrayList<RenderCommande> commandes;
+        commandes = new ArrayList<>();
+        lesCommandes.stream().map((commande) -> {
+            RenderCommande com = new RenderCommande();
+            com.setCommande(commande);
+            com.setdEnvoi(commande.getDEnvoi());
+            com.setdEnvoiprevue(commande.getDEnvoiPrevue());
+            com.setEcart(com.getdEnvoi()- com.getdEnvoiprevue());
+            com.setPenalite(commande.getPenalite());
+            com.setCout(com.getEcart() * com.getPenalite());
+            return com;
+        }).forEach((com) -> {
+            commandes.add(com);
+        });
+       return commandes;
+   }
+    
+    
+    
+    
 }
 
 

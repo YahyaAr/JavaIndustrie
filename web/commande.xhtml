@@ -48,21 +48,50 @@
                 Utilisation des boxes
             </h6>
             
-            
+            <div class="row">
             <ui:repeat var="bakedproduct" value="#{pageController.getBakedProductsOfCommande()}">
-                ----------------
-                Produit ( 
-                    Hauteur : #{bakedproduct.idProduit.hauteur}
-                    Longueur #{bakedproduct.idProduit.longueur}
-                )
-                Box (
-                Hauteur : #{bakedproduct.idBox.hauteur}
-                    Longueur #{bakedproduct.idBox.longueur}
-                )
+                
+                    <div class="col-sm-6">
+                        <div class="thumbnail" style="margin: auto">
+                        <canvas width="400" height="400" style="width: 400px; height: 400px" id="#{bakedproduct.hashCode()}"></canvas>
+                        <div class="caption">
+                            <h3>Box #{bakedproduct.idBox.id}_#{bakedproduct.numBox}</h3>
+                            <p>Date d'envoi : #{bakedproduct.idCommandeDetails.idCommande.DEnvoi} </p>
+                        </div>
+                      </div>
+                    </div>
+        
+                <script>
+                    var Point  = Isomer.Point;
+                    var Path   = Isomer.Path;
+                    var Shape  = Isomer.Shape;
+                    var Vector = Isomer.Vector;
+                    var Color  = Isomer.Color;
+
+                    var box = {
+                            hauteur: #{bakedproduct.idBox.hauteur},
+                            longuer: #{bakedproduct.idBox.longueur}
+                        }
+                    var produit = {
+                        hauteur: #{bakedproduct.idProduit.hauteur},
+                        longuer: #{bakedproduct.idProduit.longueur}
+                        }
+                    console.log(box);
+                    console.log(produit);
+                    var iso = new Isomer(document.getElementById("#{bakedproduct.hashCode()}"));
+                    var blue = new Color(50, 60, 160);
+                    var grey = new Color(150,150,150, 0.2);
+
+                    iso.add(Shape.Prism(Point.ORIGIN, box.longuer / 200, box.longuer / 200, box.hauteur / 200), grey);
+                    iso.add(Shape.Prism(Point(0, 0, 0), produit.longuer / 200 , produit.longuer / 200 , produit.hauteur / 200), blue);
+
+            </script>
             </ui:repeat>
-            
-            
+            </div>
+
         </div>
+        
+
     </h:body>
 
 
