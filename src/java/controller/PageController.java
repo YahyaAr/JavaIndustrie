@@ -52,6 +52,10 @@ public class PageController implements Serializable {
         return "gants?faces-redirect=true";
     }
     
+    public String Home(){
+        return "index?faces-redirect=true";
+    }
+    
     public String Stats() {
         return "stats?faces-redirect=true";
     }

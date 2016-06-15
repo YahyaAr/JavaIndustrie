@@ -92,9 +92,6 @@ public class DBManager implements Serializable {
        return commandes;
    }
     
-    
-    
-    
 }
 
 

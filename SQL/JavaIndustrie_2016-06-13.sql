@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 14, 2016 at 11:52 PM
+-- Generation Time: Jun 15, 2016 at 02:40 AM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.0
 
@@ -68,6 +68,7 @@ CREATE TABLE `instanceBox` (
   `num_box` int(11) DEFAULT NULL,
   `idBox` varchar(255) DEFAULT NULL,
   `idCommandeDetails` int(11) DEFAULT NULL,
+  `idProduitBaked` int(11) DEFAULT NULL,
   `idProduit` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -151,6 +152,7 @@ ALTER TABLE `commandeDetails`
 ALTER TABLE `instanceBox`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_instanceBox_idCommandeDetails` (`idCommandeDetails`),
+  ADD KEY `FK_instanceBox_idProduitBaked` (`idProduitBaked`),
   ADD KEY `FK_instanceBox_idProduit` (`idProduit`),
   ADD KEY `FK_instanceBox_idBox` (`idBox`);
 
@@ -206,7 +208,8 @@ ALTER TABLE `commandeDetails`
 ALTER TABLE `instanceBox`
   ADD CONSTRAINT `FK_instanceBox_idBox` FOREIGN KEY (`idBox`) REFERENCES `box` (`id`),
   ADD CONSTRAINT `FK_instanceBox_idCommandeDetails` FOREIGN KEY (`idCommandeDetails`) REFERENCES `commandeDetails` (`id`),
-  ADD CONSTRAINT `FK_instanceBox_idProduit` FOREIGN KEY (`idProduit`) REFERENCES `produit` (`id`);
+  ADD CONSTRAINT `FK_instanceBox_idProduit` FOREIGN KEY (`idProduit`) REFERENCES `produit` (`id`),
+  ADD CONSTRAINT `FK_instanceBox_idProduitBaked` FOREIGN KEY (`idProduitBaked`) REFERENCES `produitBaked` (`id`);
 
 --
 -- Constraints for table `produitBaked`
