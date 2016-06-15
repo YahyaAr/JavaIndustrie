@@ -9,7 +9,7 @@ and open the template in the editor.
 
 
 .mainview {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     bottom: 0;
@@ -19,7 +19,7 @@ and open the template in the editor.
 }
 
 .sidebar {
-    font-size: 14px;
+    font-size: 14px; 
     line-height: 1.214;
     height: 100%;
     left: 0;
@@ -37,4 +37,29 @@ and open the template in the editor.
 .sidebar a {
     display: block;
     padding: 7px 20px;
+}
+
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Ajouter une instance';
+  display: inline-block;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  color: #1abc9c;
+  font-weight: 700;
+  font-size: 10pt;
+  border: 2px solid #1abc9c; 
+  border-radius: 6px;
+}
+
+.custom-file-input{
+    font-size: 10pt;
+    margin-top: 10px;
+    display:none;
 }

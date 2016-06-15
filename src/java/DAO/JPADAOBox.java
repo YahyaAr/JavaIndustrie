@@ -19,6 +19,10 @@ public class JPADAOBox extends JpaDao<Box> implements DAOBox{
     private JPADAOBox() {
         
     }
+
+    public static void setInstance(JPADAOBox instance) {
+        JPADAOBox.instance = instance;
+    }
     
     protected static JPADAOBox getInstance() {
         if(instance == null)

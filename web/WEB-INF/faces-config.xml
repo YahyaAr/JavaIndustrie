@@ -14,6 +14,23 @@
         <managed-bean-class>controller.DBManager</managed-bean-class>  
         <managed-bean-scope>session</managed-bean-scope>  
     </managed-bean>
+  
+    <managed-bean>  
+        <managed-bean-name>renderBox</managed-bean-name>  
+        <managed-bean-class>tables.RenderBox</managed-bean-class>  
+        <managed-bean-scope>session</managed-bean-scope>  
+    </managed-bean>
+    <managed-bean>  
+        <managed-bean-name>renderC</managed-bean-name>  
+        <managed-bean-class>tables.RenderCommande</managed-bean-class>  
+        <managed-bean-scope>session</managed-bean-scope>  
+    </managed-bean>
+    
+    <managed-bean>  
+        <managed-bean-name>pageController</managed-bean-name>  
+        <managed-bean-class>controller.PageController</managed-bean-class>  
+        <managed-bean-scope>session</managed-bean-scope>  
+    </managed-bean>
     
 
         <navigation-rule>

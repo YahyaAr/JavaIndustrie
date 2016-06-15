@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produit.findByTSetup", query = "SELECT p FROM Produit p WHERE p.tSetup = :tSetup")})
 public class Produit implements Serializable {
 
-    @OneToMany(mappedBy = "idProduit")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "idProduit")
     private List<InstanceBox> instanceBoxList;
     private static final long serialVersionUID = 1L;
     @Id

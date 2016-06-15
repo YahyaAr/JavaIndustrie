@@ -20,7 +20,11 @@ public class JPADAOProduitBaked extends JpaDao<ProduitBaked> implements DAOProdu
     private JPADAOProduitBaked() {
         
     }
-    
+
+    public static void setInstance(JPADAOProduitBaked instance) {
+        JPADAOProduitBaked.instance = instance;
+    }
+   
     protected static JPADAOProduitBaked getInstance() {
         if(instance == null)
             instance = new JPADAOProduitBaked();

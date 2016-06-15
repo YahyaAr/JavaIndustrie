@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CommandeDetails.findByQuantite", query = "SELECT c FROM CommandeDetails c WHERE c.quantite = :quantite")})
 public class CommandeDetails implements Serializable {
 
-    @OneToMany(mappedBy = "idCommandeDetails")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "idCommandeDetails")
     private List<InstanceBox> instanceBoxList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommandeDetails")

@@ -36,5 +36,6 @@ public abstract class DAOFactory {
     public abstract DAOBox getBoxDao();
     public abstract DAOInstanceBox getInstanceBoxDao();
     public abstract DAOProduitBaked getProduitBaked();
+    public abstract void resetToNull();
     
 }

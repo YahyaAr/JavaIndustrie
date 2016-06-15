@@ -15,5 +15,6 @@ import model.Commande;
 public interface DAOCommande extends DAO<Commande>{
     
     public List<Commande> findAllOrderByDEnvoiPrevue(); //Lister les commandes par ordre d'envoi prévu 
+    public List<Commande> findAllOrderByDEnvoi(); //Lister les commandes par ordre d'envoi
 
 }

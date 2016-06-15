@@ -17,7 +17,7 @@
         <ul class="sidebar">
             <li>
                 <h:form>
-                    <h:commandLink action="#{pageController.Home()}" value="Home"></h:commandLink>
+                    <h:commandLink action="#{pageController.home}" value="Home"></h:commandLink>
                 </h:form>
             </li>
             <li>
@@ -47,21 +47,34 @@
             </ui:repeat>
         </ul>
         <div class="mainview">
+            <center><h3>Home Page!</h3></center><br/><br/>
             <h:form class="form-horizontal" enctype="multipart/form-data">
                 <div class="form-group">
-                    <h:outputLabel class="col-md-4 control-label" value="Select Fichier D'instance : " />
-                    <div class="col-md-4">
-                        <h:inputFile id="file" value="#{uploadInstance.fichier}"/>
-                        <h:commandButton
-                            id="singlebutton"
-                            class="btn btn-primary"
-                            value="Traiter"
-                            action="#{uploadInstance.uploadFichier()}"></h:commandButton>
+                    <!--<h:outputLabel class="col-md-4 control-label" value="Select Fichier D'instance : " /> -->
+                    <div class="col-md-6 " >
+                        <h:inputFile id="file" value="#{pageController.file}" class="custom-file-input"/>
+                    </div>
+                    <br/><br/>
+                    <div class="col-md-7">
+                        <h:commandButton style="width:380px; margin-bottom: 5px; margin-top: 10px;" class="btn btn-hg btn-primary" value="Traiter" action="#{pageController.doUploadAndSolution1()}"></h:commandButton>
                     </div>
                 </div>
             </h:form>
+            
+            <h:form class="download-button">
+                <h:commandButton class="btn btn-hg btn-primary" value="Telecharger la solution de l'instance" action="#{pageController.downloadSoluce()}" />
+            </h:form>  
+            <br/><br/><br/>
+            <div class="col-md-6">
+                <p>Travail réalisé par : </p><br/>
+                <div style="width: 200px; border-radius: 0;" class="btn btn-default">Yahya Arba</div><br/>
+                <div style="width: 200px; border-radius: 0;" class="btn btn-default">Amine Bounif</div><br/>
+                <div style="width: 200px; border-radius: 0;" class="btn btn-default">Achraf Dahmani</div><br/>
+                <div style="width: 200px; border-radius: 0;" class="btn btn-default">Victor Vaccaro</div><br/>
+            </div>
         </div>
-        <canvas width="800" height="600" style="width: 800px; height: 600px" id="canvas"></canvas>
+        <center><canvas width="800" height="600" style="width: 500px; height: 300px;" id="canvas"></canvas></center>
+        
 
       <script>
         //alert('#{testController.nom}');
@@ -76,13 +89,18 @@
         var red = new Color(160, 60, 50);
         var blue = new Color(50, 60, 160);
         var grey = new Color(150,150,150, 0.2);
+        var pink = new Color(255,105,180);
+        
         console.log(grey);
 
         iso.add(Shape.Prism(Point.ORIGIN, 4, 4, 4), grey);
         iso.add(Shape.Prism(Point(0, 0, 0), 2, 3), blue);
+        iso.add(Shape.Prism(Point(0, 0, 1), 2, 3), blue);
+        //iso.add(Shape.Prism(Point(2, 0, 0), 2, 2), red);
 
 
     </script>
+
     </h:body>
 
 

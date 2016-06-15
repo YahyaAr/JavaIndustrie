@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     
-                <ui:repeat var="renderBox" value="#{dBManager.boxAchetesList()}">
+                    <ui:repeat var="renderBox" value="#{dBManager.boxAchetesList()}">
                     <tr>
                         <td>#{renderBox.box.id}</td>
                         <td>#{renderBox.box.prixBox}</td>
@@ -84,14 +84,14 @@
                 </thead>
                 <tbody>
                     
-                    <ui:repeat var="renderCommande" value="#{dBManager.commandesTableList()}">
+                    <ui:repeat var="renderC" value="#{dBManager.commandesTable()}">
                     <tr>
-                        <td>#{renderCommande.commande.id}</td>
-                        <td>#{renderCommande.commande.DEnvoiPrevue}</td>
-                        <td>#{renderCommande.commande.DEnvoi}</td>
-                        <td>#{renderCommande.penalite}</td>
-                        <td>#{renderCommande.ecart}</td>
-                        <td>#{renderCommande.cout}</td>
+                        <td>#{renderC.commande.id}</td>
+                        <td>#{renderC.commande.DEnvoiPrevue}</td>
+                        <td>#{renderC.commande.DEnvoi}</td>
+                        <td>#{renderC.penalite}</td>
+                        <td>#{renderC.ecart}</td>
+                        <td>#{renderC.cout}</td>
                     </tr>
                     
                   </ui:repeat>

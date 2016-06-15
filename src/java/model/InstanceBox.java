@@ -35,6 +35,7 @@ import org.eclipse.persistence.jpa.config.Cascade;
     @NamedQuery(name = "InstanceBox.findAllAchete", query = "SELECT b FROM InstanceBox b ORDER BY b.idBox"),
     @NamedQuery(name = "InstanceBox.findBoxById", query = "SELECT b FROM InstanceBox b WHERE b.id = :id"),
     @NamedQuery(name = "InstanceBox.deleteAll", query = "DELETE FROM InstanceBox i"),
+    @NamedQuery(name = "InstanceBox.findBoxByProduitBaked", query = "SELECT b FROM InstanceBox b WHERE b.idProduitBaked = :idProduitBaked"),
     @NamedQuery(name = "InstanceBox.findAll", query = "SELECT i FROM InstanceBox i"),
     @NamedQuery(name = "InstanceBox.findById", query = "SELECT i FROM InstanceBox i WHERE i.id = :id"),
     @NamedQuery(name = "InstanceBox.findByLibre", query = "SELECT i FROM InstanceBox i WHERE i.libre = :libre"),
@@ -43,11 +44,11 @@ import org.eclipse.persistence.jpa.config.Cascade;
 public class InstanceBox implements Serializable {
 
     @JoinColumn(name = "idProduitBaked", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private ProduitBaked idProduitBaked;
 
     @JoinColumn(name = "idCommandeDetails", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private CommandeDetails idCommandeDetails;
 
      private static final long serialVersionUID = 1L;

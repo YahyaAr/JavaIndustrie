@@ -50,6 +50,19 @@ public class JPADAOFactory extends DAOFactory {
         return JPADAOProduitBaked.getInstance();
     }
 
+    @Override
+    public void resetToNull() {
+        JPADAOBox.setInstance(null);
+        JPADAOInstanceBox.setInstance(null);
+        JPADAOCommande.setInstance(null);
+        JPADAOCommandeDetails.setInstance(null);
+        JPADAOLigneProduction.setInstance(null);
+        JPADAOProduit.setInstance(null);
+        JPADAOProduitBaked.setInstance(null);
+    }
+    
+    
+ 
   
     
 }

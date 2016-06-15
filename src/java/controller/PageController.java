@@ -9,11 +9,14 @@ import DAO.DAOCommandeDetails;
 import DAO.DAOFactory;
 import DAO.DAOProduitBaked;
 import DAO.JPADAOFactory;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
+import metier.SoluceFile;
+import metier.Solution1;
 import model.Commande;
 import model.CommandeDetails;
 import model.InstanceBox;
@@ -23,10 +26,9 @@ import model.ProduitBaked;
  *
  * @author achrafdahmani
  */
-@Named(value = "pageController")
 @SessionScoped
 public class PageController implements Serializable {
-
+    private Part file;
     private Commande commande;
     private List<InstanceBox> bakedProductsOfCommande;
     private List<InstanceBox> boxesOfAllCommandes;
@@ -49,6 +51,8 @@ public class PageController implements Serializable {
         this.lastInProd = lastInProd;
     }
     
+
+    private String nameFile;
     public Commande getCommande() {
         return commande;
     }
@@ -56,6 +60,14 @@ public class PageController implements Serializable {
     
     public void setCommande(Commande commande) {
         this.commande = commande;
+    }
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
     }
 
     public List<InstanceBox> getBakedProductsOfCommande() {
@@ -70,7 +82,24 @@ public class PageController implements Serializable {
      * Creates a new instance of PageController
      */
     public PageController() {
+    }
+    
+    public String doUploadAndSolution1(){
+        TraitementInstance i = new TraitementInstance();
+        i.setFichier(this.getFile());
+        nameFile = this.getFile().getName();
+        i.uploadFichier();
+        Solution1 s = new Solution1();
+        s.solve();
+        return "index?faces-redirect=true";
+
+    }
+    public String downloadSoluce() throws IOException{
+        SoluceFile sf = new SoluceFile();
+        sf.setNameFile(file.getSubmittedFileName());
+        sf.generate();
         
+        return "index?faces-redirect=true";
     }
     
     public String Home(){
@@ -90,21 +119,21 @@ public class PageController implements Serializable {
         System.out.println("1");
         this.bakedProductsOfCommande = new ArrayList<>();
         System.out.println(bakedProductsOfCommande);
-        
+        List<InstanceBox> e = new ArrayList<>();
         for (int h = 0; h < commande.getCommandeDetailsList().size(); h++) {
             System.out.println("FOR 1 "+h);
-            List<InstanceBox> e = new ArrayList();
             CommandeDetails cd = commande.getCommandeDetailsList().get(h);
             System.out.println("cd "+cd);
             e= cd.getInstanceBoxList();
             System.out.println("E :"+e+" "+commande.getCommandeDetailsList());
-            for (int i = 0; i < e.size(); i++) {
+            
+        }   
+        for (int i = 0; i < e.size(); i++) {
                 
                 System.out.println(2 + i);
                 this.bakedProductsOfCommande.add(e.get(i));
             }
-        }      
-//        System.out.println(this.bakedProductsOfCommande);
+        System.out.println(" dfd "+this.bakedProductsOfCommande);
         return "commande?faces-redirect=true";
     }
     

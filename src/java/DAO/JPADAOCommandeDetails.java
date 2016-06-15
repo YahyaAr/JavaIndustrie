@@ -21,6 +21,10 @@ public class JPADAOCommandeDetails extends JpaDao<CommandeDetails> implements DA
     private JPADAOCommandeDetails() {
         
     }
+
+    public static void setInstance(JPADAOCommandeDetails instance) {
+        JPADAOCommandeDetails.instance = instance;
+    }
     
     protected static JPADAOCommandeDetails getInstance() {
         if(instance == null)

@@ -20,6 +20,10 @@ public class JPADAOCommande extends JpaDao<Commande> implements DAOCommande {
     private JPADAOCommande() {
         
     }
+
+    public static void setInstance(JPADAOCommande instance) {
+        JPADAOCommande.instance = instance;
+    }
     
     protected static JPADAOCommande getInstance() {
         if(instance == null)
@@ -55,5 +59,12 @@ public class JPADAOCommande extends JpaDao<Commande> implements DAOCommande {
     public Commande find(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    // GET des commandes triées par ordre d'envoi
+    @Override
+    public List<Commande> findAllOrderByDEnvoi() {
+        return em.createNamedQuery("Commande.findAllOrderByDEnvoi").getResultList();
+    }
+    
     
 }

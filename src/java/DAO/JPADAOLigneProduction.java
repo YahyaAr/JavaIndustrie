@@ -20,6 +20,10 @@ public class JPADAOLigneProduction extends JpaDao<LigneProduction> implements DA
     private JPADAOLigneProduction() {
         
     }
+
+    public static void setInstance(JPADAOLigneProduction instance) {
+        JPADAOLigneProduction.instance = instance;
+    }
     
     protected static JPADAOLigneProduction getInstance() {
         if(instance == null)

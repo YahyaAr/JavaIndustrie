@@ -20,6 +20,10 @@ public class JPADAOProduit extends JpaDao<Produit> implements DAOProduit{
     private JPADAOProduit() {
         
     }
+
+    public static void setInstance(JPADAOProduit instance) {
+        JPADAOProduit.instance = instance;
+    }
     
     protected static JPADAOProduit getInstance() {
         if(instance == null)

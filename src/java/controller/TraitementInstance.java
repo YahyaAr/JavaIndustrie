@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import metier.Solution1;
@@ -33,14 +33,14 @@ public class TraitementInstance implements Serializable {
     private int nbLignesProd;
     private String fileName,nom;
 
-    private final JPADAOFactory jpaDaoFactory;// = (JPADAOFactory) DAOFactory.getDaoFactory(DAOFactory.PersistType.JPA);
-    private final DAOProduit daoProduit;
-    private final DAOBox daoBox;
-    private final DAOLigneProduction daoLigneProduction;
-    private final DAOCommande daoCommande;
-    private final DAOCommandeDetails daoCommandeDetail;
-    private final DAOInstanceBox daoInstanceBox;
-    private final DAOProduitBaked daoProduitBaked;
+    private JPADAOFactory jpaDaoFactory;// = (JPADAOFactory) DAOFactory.getDaoFactory(DAOFactory.PersistType.JPA);
+    private DAOProduit daoProduit;
+    private DAOBox daoBox;
+    private DAOLigneProduction daoLigneProduction;
+    private DAOCommande daoCommande;
+    private DAOCommandeDetails daoCommandeDetail;
+    private DAOInstanceBox daoInstanceBox;
+    private DAOProduitBaked daoProduitBaked;
 
 
     public TraitementInstance() {
@@ -55,14 +55,7 @@ public class TraitementInstance implements Serializable {
         daoProduitBaked = jpaDaoFactory.getProduitBaked();
         
         // initialisation de la BDD ( suppression des anciennes données ) /////////
-        daoProduitBaked.deleteAll();
-        daoCommandeDetail.deleteAll();
-        daoInstanceBox.deleteAll();
-        daoCommande.deleteAll();
-
-        daoProduit.deleteAll();
-        daoBox.deleteAll();
-        daoLigneProduction.deleteAll();
+        
         
     }
 
@@ -89,16 +82,10 @@ public class TraitementInstance implements Serializable {
     public void setFichier(Part fichier) {
         this.fichier = fichier;
     }
-
-
-    public String uploadFichier() {
-//        daoProduit.deleteAll();
-//        daoBox.deleteAll();
-//        daoLigneProduction.deleteAll();
-//        daoCommande.deleteAll();
-//        daoCommandeDetail.deleteAll();
-//        daoInstanceBox.deleteAll();
-        try {
+ 
+    public void uploadFichier() {
+       viderTout();
+            try {
             BufferedReader in = new BufferedReader(new InputStreamReader(fichier.getInputStream()));
             String line;
             while((line = in.readLine()) != null) {
@@ -171,17 +158,52 @@ public class TraitementInstance implements Serializable {
         } catch (IOException e) {
             System.out.println("excp: "+e);
         }
-        Solution1 Sol = new Solution1();
-        Sol.solve();
-//        daoProduit.close();
-//        daoBox.close();
-//        daoLigneProduction.close();
-//        daoCommande.close();
-//        daoCommandeDetail.close();
-//        daoInstanceBox.close();
-       return "uploadOK";
+//Add Comment Col
+       
     }
 
+    public void viderTout(){
+        
+        daoInstanceBox.deleteAll();
+        daoProduitBaked.deleteAll();
+        daoCommandeDetail.deleteAll();
+        daoBox.deleteAll();
+        daoCommande.deleteAll();
+        daoLigneProduction.deleteAll();
+        daoProduit.deleteAll();
+
+        
+        daoProduitBaked.close();
+        daoInstanceBox.close();
+        daoCommandeDetail.close();
+        daoCommande.close();
+        daoProduit.close();
+        daoBox.close();
+        daoLigneProduction.close();
+        
+        jpaDaoFactory.resetToNull();
+        
+        jpaDaoFactory = null;
+        daoProduitBaked = null;
+        daoInstanceBox = null;
+        daoCommandeDetail = null;
+        daoCommande = null;
+        daoProduit = null;
+        daoBox = null;
+        daoLigneProduction = null;
+        
+        
+        jpaDaoFactory = (JPADAOFactory) DAOFactory.getDaoFactory(DAOFactory.PersistType.JPA);
+        daoProduit = jpaDaoFactory.getProduitDao();
+        daoBox = jpaDaoFactory.getBoxDao();
+        daoLigneProduction = jpaDaoFactory.getLigneProductionDao();
+        daoCommande = jpaDaoFactory.getCommandeDao();
+        daoCommandeDetail = jpaDaoFactory.getCommandeDetailDao();
+        daoInstanceBox = jpaDaoFactory.getInstanceBoxDao();
+        daoProduitBaked = jpaDaoFactory.getProduitBaked();
+       
+        
+    }
     public Boolean isNumber(String val) {
         //source :
         //http://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java

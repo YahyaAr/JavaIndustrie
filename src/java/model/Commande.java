@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.findAllOrderByDEnvoiPrevue", query = "SELECT c FROM Commande c ORDER BY c.dEnvoiPrevue"),
     @NamedQuery(name = "Commande.findByDEnvoiPrevue", query = "SELECT c FROM Commande c WHERE c.dEnvoiPrevue = :dEnvoiPrevue"),
     @NamedQuery(name = "Commande.findByDEnvoi", query = "SELECT c FROM Commande c WHERE c.dEnvoi = :dEnvoi"),
+    @NamedQuery(name = "Commande.findAllOrderByDEnvoi", query = "SELECT c FROM Commande c ORDER BY c.dEnvoi"),
     @NamedQuery(name = "Commande.findByNb", query = "SELECT c FROM Commande c WHERE c.nb = :nb"),
     @NamedQuery(name = "Commande.findByPenalite", query = "SELECT c FROM Commande c WHERE c.penalite = :penalite"),
     @NamedQuery(name = "Commande.findByStockMin", query = "SELECT c FROM Commande c WHERE c.stockMin = :stockMin")})

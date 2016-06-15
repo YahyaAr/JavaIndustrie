@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityTransaction;
 import model.Box;
 import model.InstanceBox;
+import model.ProduitBaked;
 
 /**
  *
@@ -22,6 +23,10 @@ public class JPADAOInstanceBox extends JpaDao<InstanceBox> implements DAOInstanc
     
     private JPADAOInstanceBox() {
         
+    }
+
+    public static void setInstance(JPADAOInstanceBox instance) {
+        JPADAOInstanceBox.instance = instance;
     }
     
     protected static JPADAOInstanceBox getInstance() {
@@ -57,6 +62,11 @@ public class JPADAOInstanceBox extends JpaDao<InstanceBox> implements DAOInstanc
     @Override
     public List<InstanceBox> findLesBoxById(Box b) {
         return em.createNamedQuery("InstanceBox.findBoxById").setParameter("id", b.getId()).getResultList();
+    }
+    
+    @Override
+    public List<InstanceBox> findBoxByProduitBaked(ProduitBaked b) {
+        return em.createNamedQuery("InstanceBox.findBoxByProduitBaked").setParameter("idProduitBaked", b).getResultList();
     }
 
     @Override
