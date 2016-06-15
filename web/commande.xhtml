@@ -11,6 +11,8 @@
         <link href="css/index.css" rel="stylesheet"></link>
         <link href="css/flat-ui.css" rel="stylesheet"></link>
         <script src="js/isomer.min.js"></script>
+        <script src="js/randomColor.js"></script>
+        <script src="js/fabricJs.min.js"></script>
     </h:head>
     <h:body>
         <ul class="sidebar">
@@ -45,17 +47,57 @@
         </ul>
         <div class="mainview">
             <h3>
-                Commande #{pageController.commande.id} prévue à 
+                Commande #{pageController.commande.id} prévue à
                 #{pageController.commande.DEnvoiPrevue} envoyé à #{pageController.commande.DEnvoi}
             </h3>
-            
+
+            <h6>
+               Production
+            </h6>
+            <div style="border: 2px #16a085 solid; overflow: auto;">
+                <canvas width="#{pageController.commande.DEnvoi}" height="55" style="width: #{pageController.commande.DEnvoi}px; height: 40px" id="c"></canvas>
+            </div>
+            <script>
+
+                var canvas = new fabric.Canvas('c');
+
+                var bakedproducts = [
+                <c:forEach items="${pageController.getBakedProductsOfCommande()}" var="bakedproduct" varStatus="status">
+                    {dateDebutProd: ${bakedproduct.idProduitBaked.dateDebutProd}, Tprod: ${bakedproduct.idProduit.TProduction} },
+                </c:forEach>
+                ];
+
+
+                canvas.add(new fabric.Line([ #{pageController.commande.DEnvoi}, 0, #{pageController.commande.DEnvoi}, 100], { stroke: 'red', selectable: false }));
+
+
+                var text = new fabric.Text('t = 0', { left: 0, top: 40, fontSize: 15 });
+                text.set('selectable', false);
+                canvas.add(text);
+
+
+                function renderElems(elem) {
+                    var rect = new fabric.Rect({
+                        left: elem.dateDebutProd,
+                        top: 0,
+                        fill: randomColor(),
+                        width: elem.Tprod,
+                        height: 40
+                      });
+                    rect.set('selectable', false);
+                    canvas.add(rect);
+                }
+                bakedproducts.forEach(renderElems);
+
+            </script>
+
             <h6>
                 Utilisation des boxes
             </h6>
-            
+
             <div class="row">
             <ui:repeat var="bakedproduct" value="#{pageController.getBakedProductsOfCommande()}">
-                
+
                     <div class="col-sm-6">
                         <div class="thumbnail" style="text-align: center">
                         <canvas width="400" height="400" style="width: 400px; height: 400px" id="#{bakedproduct.hashCode()}"></canvas>
@@ -65,7 +107,7 @@
                         </div>
                       </div>
                     </div>
-        
+
                 <script>
                     var Point  = Isomer.Point;
                     var Path   = Isomer.Path;
@@ -81,8 +123,6 @@
                         hauteur: #{bakedproduct.idProduit.hauteur},
                         longuer: #{bakedproduct.idProduit.longueur}
                         }
-                    console.log(box);
-                    console.log(produit);
                     var iso = new Isomer(document.getElementById("#{bakedproduct.hashCode()}"));
                     var blue = new Color(50, 60, 160);
                     var grey = new Color(150,150,150, 0.2);
@@ -95,7 +135,7 @@
             </div>
 
         </div>
-        
+
 
     </h:body>
 

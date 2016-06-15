@@ -7,7 +7,6 @@ package DAO;
 
 import java.util.List;
 import javax.persistence.EntityTransaction;
-import model.Box;
 import model.ProduitBaked;
 
 /**
@@ -49,6 +48,11 @@ public class JPADAOProduitBaked extends JpaDao<ProduitBaked> implements DAOProdu
     @Override
     public ProduitBaked find(Integer id) {
         return em.find(ProduitBaked.class, id);
+    }
+    
+    @Override
+    public ProduitBaked findLastOne() {
+        return (ProduitBaked) em.createNamedQuery("ProduitBaked.findLastOne").getResultList().get(0);
     }
    
 }

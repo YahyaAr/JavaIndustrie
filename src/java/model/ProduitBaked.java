@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ProduitBaked.deleteAll", query = "DELETE FROM ProduitBaked p"),
     @NamedQuery(name = "ProduitBaked.findAll", query = "SELECT p FROM ProduitBaked p"),
     @NamedQuery(name = "ProduitBaked.findById", query = "SELECT p FROM ProduitBaked p WHERE p.id = :id"),
-    @NamedQuery(name = "ProduitBaked.findByDateDebutProd", query = "SELECT p FROM ProduitBaked p WHERE p.dateDebutProd = :dateDebutProd")})
+    @NamedQuery(name = "ProduitBaked.findByDateDebutProd", query = "SELECT p FROM ProduitBaked p WHERE p.dateDebutProd = :dateDebutProd"),
+    @NamedQuery(name = "ProduitBaked.findLastOne", query = "SELECT p FROM ProduitBaked p ORDER BY p.dateDebutProd DESC")})
+
 public class ProduitBaked implements Serializable {
 
     @OneToMany(mappedBy = "idProduitBaked")

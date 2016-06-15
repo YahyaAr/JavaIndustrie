@@ -10,7 +10,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
         <link href="css/index.css" rel="stylesheet"></link>
         <link href="css/flat-ui.css" rel="stylesheet"></link>
-
+        <script src="js/isomer.min.js"></script>
+        <script src="js/randomColor.js"></script>
+        <script src="js/fabricJs.min.js"></script>
     </h:head>
     <h:body>
         <ul class="sidebar">
@@ -31,7 +33,7 @@
             </li>
             <li>
                 <h:form>
-                    <h:commandLink action="#{pageController.Tests()}" value="Tests"></h:commandLink>
+                     <h:commandLink action="#{pageController.Tests()}" value="Tests"></h:commandLink>
                 </h:form>
             </li>
             <li style="padding: 20px">
@@ -44,8 +46,56 @@
             </ui:repeat>
         </ul>
         <div class="mainview">
-            gants
+            <h3>
+                Gantt Général
+            </h3>
+
+            <div style="border: 2px #16a085 solid; overflow: auto;">
+                <canvas
+                    width="#{pageController.lastInProd.dateDebutProd + pageController.lastInProd.idCommandeDetails.idProduit.TProduction}"
+                    height="55"
+                    style="width: #{pageController.lastInProd.dateDebutProd + pageController.lastInProd.idCommandeDetails.idProduit.TProduction}px; height: 40px"
+                    id="c">
+                </canvas>
+            </div>
+           <script>
+
+                var canvas = new fabric.Canvas('c');
+
+                var bakedproducts = [
+                  <c:forEach items="${pageController.getBoxesOfAllCommandes()}" var="box" varStatus="status">
+                      {
+                          dateDebutProd: ${box.getIdProduitBaked().getDateDebutProd()},
+                          Tprod: ${box.getIdProduitBaked().getIdCommandeDetails().getIdProduit().getTProduction()}
+                      },
+                  </c:forEach>
+                    ];
+
+
+
+//Math.random()
+                var text = new fabric.Text('t = 0', { left: 0, top: 40, fontSize: 15 });
+                text.set('selectable', false);
+                canvas.add(text);
+
+                function renderElems(elem) {
+                    var rect = new fabric.Rect({
+                        left: elem.dateDebutProd,
+                        top: 0,
+                        fill: randomColor(),
+                        width: elem.Tprod,
+                        height: 40
+                      });
+                    rect.set('selectable', false);
+                    canvas.add(rect);
+                }
+                bakedproducts.forEach(renderElems);
+
+            </script>
+
         </div>
+
+
     </h:body>
 
 

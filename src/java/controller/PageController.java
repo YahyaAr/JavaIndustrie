@@ -5,6 +5,10 @@
  */
 package controller;
 
+import DAO.DAOCommandeDetails;
+import DAO.DAOFactory;
+import DAO.DAOProduitBaked;
+import DAO.JPADAOFactory;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -25,11 +29,31 @@ public class PageController implements Serializable {
 
     private Commande commande;
     private List<InstanceBox> bakedProductsOfCommande;
+    private List<InstanceBox> boxesOfAllCommandes;
+    private DAOCommandeDetails daoCommandeDetails;
+    private ProduitBaked lastInProd;
 
+    public List<InstanceBox> getBoxesOfAllCommandes() {
+        return boxesOfAllCommandes;
+    }
+
+    public void setBoxesOfAllCommandes(List<InstanceBox> boxesOfAllCommandes) {
+        this.boxesOfAllCommandes = boxesOfAllCommandes;
+    }
+
+    public ProduitBaked getLastInProd() {
+        return lastInProd;
+    }
+
+    public void setLastInProd(ProduitBaked lastInProd) {
+        this.lastInProd = lastInProd;
+    }
+    
     public Commande getCommande() {
         return commande;
     }
 
+    
     public void setCommande(Commande commande) {
         this.commande = commande;
     }
@@ -46,10 +70,7 @@ public class PageController implements Serializable {
      * Creates a new instance of PageController
      */
     public PageController() {
-    }
-    
-    public String Gants(){
-        return "gants?faces-redirect=true";
+        
     }
     
     public String Home(){
@@ -87,4 +108,25 @@ public class PageController implements Serializable {
         return "commande?faces-redirect=true";
     }
     
+    
+        public String Gants() {
+        this.boxesOfAllCommandes = new ArrayList<>();
+       // System.out.println(bakedProductsOfCommande);
+        
+        JPADAOFactory jpaDaoFactory = (JPADAOFactory) DAOFactory.getDaoFactory(DAOFactory.PersistType.JPA);
+        daoCommandeDetails = jpaDaoFactory.getCommandeDetailDao();
+        DAOProduitBaked daoProduitBaked = jpaDaoFactory.getProduitBaked();
+        this.lastInProd  = daoProduitBaked.findLastOne();
+        List<CommandeDetails> LesCommandesDetails = daoCommandeDetails.findAll();
+        
+        
+        for (int h = 0; h < LesCommandesDetails.size(); h++) {
+            
+            for (int i = 0; i < LesCommandesDetails.get(h).getInstanceBoxList().size(); i++) {
+                boxesOfAllCommandes.add(LesCommandesDetails.get(h).getInstanceBoxList().get(i));
+            }
+        }
+//        System.out.println(this.bakedProductsOfCommande);
+        return "gants?faces-redirect=true";
+    }
 }

@@ -13,4 +13,6 @@ import model.ProduitBaked;
  */
 public interface DAOProduitBaked extends DAO<ProduitBaked> {
     
+     public ProduitBaked findLastOne(); // renvoie le dernier produit en prod
+
 }
