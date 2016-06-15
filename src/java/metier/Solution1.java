@@ -81,6 +81,7 @@ public class Solution1 {
                         instanceBox.setIdProduit(produitBaked.getIdCommandeDetails().getIdProduit());
                         instanceBox.setIdBox(box);
                         instanceBox.setLibre(0);
+                        instanceBox.setIdProduitBaked(produitBaked);
                         instanceBox.setIdCommandeDetails(produitBaked.getIdCommandeDetails());
                             // on incremente l'id de box du meme type
                         instanceBox.setNumBox(daoInstanceBox.compteurDeBox(box) + 1);

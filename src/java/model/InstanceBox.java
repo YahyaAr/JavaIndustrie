@@ -42,6 +42,10 @@ import org.eclipse.persistence.jpa.config.Cascade;
     @NamedQuery(name = "InstanceBox.findByIdProduit", query = "SELECT i FROM InstanceBox i WHERE i.idProduit = :id_Produit")})
 public class InstanceBox implements Serializable {
 
+    @JoinColumn(name = "idProduitBaked", referencedColumnName = "id")
+    @ManyToOne
+    private ProduitBaked idProduitBaked;
+
     @JoinColumn(name = "idCommandeDetails", referencedColumnName = "id")
     @ManyToOne
     private CommandeDetails idCommandeDetails;
@@ -143,6 +147,14 @@ public class InstanceBox implements Serializable {
 
     public void setIdCommandeDetails(CommandeDetails idCommandeDetails) {
         this.idCommandeDetails = idCommandeDetails;
+    }
+
+    public ProduitBaked getIdProduitBaked() {
+        return idProduitBaked;
+    }
+
+    public void setIdProduitBaked(ProduitBaked idProduitBaked) {
+        this.idProduitBaked = idProduitBaked;
     }
 
 }

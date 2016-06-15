@@ -6,6 +6,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ProduitBaked.findById", query = "SELECT p FROM ProduitBaked p WHERE p.id = :id"),
     @NamedQuery(name = "ProduitBaked.findByDateDebutProd", query = "SELECT p FROM ProduitBaked p WHERE p.dateDebutProd = :dateDebutProd")})
 public class ProduitBaked implements Serializable {
+
+    @OneToMany(mappedBy = "idProduitBaked")
+    private List<InstanceBox> instanceBoxList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +55,12 @@ public class ProduitBaked implements Serializable {
     private CommandeDetails idCommandeDetails;
 
     public ProduitBaked() {
+        instanceBoxList = new ArrayList();
     }
 
     public ProduitBaked(Integer id) {
         this.id = id;
+        instanceBoxList = new ArrayList();
     }
 
     public Integer getId() {
@@ -109,6 +118,15 @@ public class ProduitBaked implements Serializable {
     @Override
     public String toString() {
         return "model.ProduitBaked[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<InstanceBox> getInstanceBoxList() {
+        return instanceBoxList;
+    }
+
+    public void setInstanceBoxList(List<InstanceBox> instanceBoxList) {
+        this.instanceBoxList = instanceBoxList;
     }
     
 }

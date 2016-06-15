@@ -52,11 +52,11 @@
             <ui:repeat var="bakedproduct" value="#{pageController.getBakedProductsOfCommande()}">
                 
                     <div class="col-sm-6">
-                        <div class="thumbnail" style="margin: auto">
+                        <div class="thumbnail" style="text-align: center">
                         <canvas width="400" height="400" style="width: 400px; height: 400px" id="#{bakedproduct.hashCode()}"></canvas>
                         <div class="caption">
                             <h3>Box #{bakedproduct.idBox.id}_#{bakedproduct.numBox}</h3>
-                            <p>Date d'envoi : #{bakedproduct.idCommandeDetails.idCommande.DEnvoi} </p>
+                            <p>Début de production en #{bakedproduct.idProduitBaked.dateDebutProd} </p>
                         </div>
                       </div>
                     </div>
